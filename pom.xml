@@ -16,6 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <mybatis_generator_configFile>${basedir}/src/main/resources/mybatis-generator.xml</mybatis_generator_configFile>
     </properties>
 
     <dependencies>
@@ -64,10 +65,28 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.7</version>
+                <configuration>
+                    <configurationFile>
+                        ${mybatis_generator_configFile}
+                    </configurationFile>
+                </configuration>
             </plugin>
         </plugins>
     </build>
