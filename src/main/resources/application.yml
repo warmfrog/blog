@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/booksp?useUnicode=true&characterEncoding=utf8
-    username: warmfrog
-    password: 159491
+    username: root
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis:
