@@ -1,1 +1,0 @@
-INSERT INTO booksp.user (username, password) VALUES ('warmfrog', '159491');

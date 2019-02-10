@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="wp" th:fragment="article">
+
+    <style type="text/css">
+        #nv_portal .vw .h.hm {background: #FFF url("/images/default.png"); border-radius: 0;background-size: cover; background-position: center; height: 640px;position: relative;padding: 10px; margin-bottom: 0; }
+        #nv_portal .vw .h.hm h1 {background-color: rgba(33,33,33,0.8); border-radius: 0;position: absolute;margin: 10px 20px 20px 20px;padding: 15px 10px;bottom: 0;width: 90%; }
+        #nv_portal .vw .d table {margin: 0;}
+    </style>
+    <div id="ct" class="ct2 wp cl">
+        <div class="mn">
+            <article class="vw" >
+                <div class="h hm bm" style="margin-top: 0;">
+                    <h1 class="ph" id="article_title" th:attr="article_id=${article.id}" th:text="${article.title}">如何使用不同的方式更改 Linux 用户密码 </h1>
+                    <div class="ph" id="article_copyright">
+<span>作者：
+
+    		    			<span class="textcut"><a href="https://www.2daygeek.com/linux-passwd-chpasswd-command-set-update-change-users-password-in-linux-using-shell-script/" target="_blank" th:text="${article.authorId}">Vinoth Kumar</a></span>
+    		    	    	<span>译者：
+<a href="https://linux.cn/lctt/" target="_blank">LCTT</a>&nbsp;<a href="/lctt/MjSeven" target="_blank">MjSeven</a></span>
+<p id="article_date">
+| 2019-02-06 18:22&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+</p>
+</span></div>
+                </div>
+                <div class="d" style="width: 100%;margin: 0;">
+                    <div id="article_content" style="border-radius:0;">
+
+<a href="https://www.2daygeek.com/linux-passwd-chpasswd-command-set-update-change-users-password-in-linux-using-shell-script/" class="ext" rel="external nofollow" target="_blank">https://www.2daygeek.com/linux-passwd-chpasswd-command-set-update-change-users-password-in-linux-using-shell-script/</a></p>
+                        <p>作者：<a href="https://www.2daygeek.com/author/vinoth/" class="ext" rel="external nofollow" target="_blank">Vinoth Kumar</a> 选题：<a href="https://github.com/lujun9972" class="ext" rel="external nofollow" target="_blank">lujun9972</a> 译者：<a href="https://github.com/MjSeven" class="ext" rel="external nofollow" target="_blank">MjSeven</a> 校对：<a href="https://github.com/wxy" class="ext" rel="external nofollow" target="_blank"> wxy</a></p>
+                        <p>本文由 <a href="https://github.com/LCTT/TranslateProject" class="ext" rel="external nofollow" target="_blank">LCTT</a> 原创编译，<a href="https://linux.cn/article-10514-1.html">Linux中国</a> 荣誉推出</p></div>
+                </div>
+                <br class="clear">
+                <div>
+                </div>
+                <br class="clear">
+            </article>
+        </div>
+    </div>
+    <input type="hidden" id="portalview" value="1">
+    <script>
+        $(function () {
+            var id = $('#article_title').attr("article_id");
+            $.get("/article/get/" + id, function (result) {
+                var converter = new showdown.Converter(),
+                    html = converter.makeHtml(result);
+                $("#article_content").html(html);
+                // hljs.initHighlightingOnLoad();
+                hljs.initHighlighting();
+            });
+        });
+    </script>
+</div>
+

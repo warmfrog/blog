@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{fragment/head :: head}"></div>
+<body id="nv_portal" class="pg_view">
+<div th:replace="~{fragment/header :: header}"></div>
+<div class="wp">
+    <div th:replace="~{${path} :: ${content}}"></div>
+</div>
+<div th:replace="~{fragment/footer :: footer}"></div>
+</body>

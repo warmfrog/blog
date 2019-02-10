@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar" th:fragment="menu">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="dist/img/user2-160x160.jpg" th:src="@{/admin_lte/dist/img/user2-160x160.jpg}" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p sec:authentication="name">Alexander Pierce</p>
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+        </div>
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">资源</li>
+            <li class="active"><a href="/article/list"><i class="fa fa-file-text text-aqua"></i> <span>文章</span></a></li>
+            <li><a href="book/list"><i class="fa fa-book text-aqua"></i> <span>图书</span></a></li>
+            <li><a href="/image/list"><i class="fa fa-image text-aqua"></i> <span>图片</span></a></li>
+            <li><a href="/code/list"><i class="fa fa-file-code-o text-aqua"></i> <span>代码</span></a></li>
+            <li><a href="software/list"> <i class="fa fa-linux text-aqua    "></i><i class="fa fa-windows text-aqua"></i> <span>软件</span></a></li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

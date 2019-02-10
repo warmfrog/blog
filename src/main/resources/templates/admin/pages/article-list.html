@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<section class="content" th:fragment="article-list">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title col-lg-1">文章列表</h3>
+            <button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#article-add">
+                添加
+            </button>
+
+            <button type="button" class="btn btn-primary pull-right" data-toggle="modal"
+                    data-target="#image-add-multiple">
+                图片 <i class="fa fa-upload"></i>
+            </button>
+            <button type="button" class="btn btn-info pull-right" data-toggle="modal"
+                    data-target="#book-add-multiple">
+                图书 <i class="fa fa-upload"></i>
+            </button>
+            <button type="button" class="btn btn-success pull-right" data-toggle="modal"
+                    data-target="#article-add-multiple">
+                Markdown    <i class="fa fa-upload"></i>
+            </button>
+            <div class="modal fade" id="article-add" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title">添加文章</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="box box-primary">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">文章信息</h3>
+                                </div>
+                                <!-- /.box-header -->
+                                <!-- form start -->
+                                <form role="form" enctype="multipart/form-data" method="post" th:action="@{/article/add}">
+                                    <div class="box-body">
+                                        <div class="form-group col-lg-10">
+                                                    <label>分类</label>
+                                                <select class="form-control" name="typeId">
+                                                    <option th:each="type : ${types}" th:text="${type.name}"
+                                                            th:value="${type.id}">linux
+                                                    </option>
+                                                </select>
+
+                                        </div>
+                                        <div class="form-group col-lg-2">
+                                            <label>新增</label>
+                                            <a class="btn btn-success">新增分类</a>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="markdown-file">Markdown 文件</label>
+                                            <input type="file" name="markdown" id="markdown-file" required="required">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="article-images">包含的图像</label>
+                                            <input type="file" id="article-images" name="article_images"
+                                                   multiple="multiple" accept="image/png,image/jpeg,image/jpg">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>简介</label>
+                                            <textarea class="form-control" rows="3" name="intro"
+                                                      placeholder="文章内容主题,简介"></textarea>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-body -->
+
+                                    <div class="box-footer">
+                                        <button type="submit" class="btn btn-primary">添加</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <div class="modal fade" id="article-add-multiple" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">批量添加</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">添加markdown</h3>
+                            </div>
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <form role="form" enctype="multipart/form-data" method="post"
+                                  th:action="@{/article/multiple-add}">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="markdown-file">Markdown 文件</label>
+                                        <input type="file" name="markdowns" id="markdown-files" multiple="multiple"
+                                               required="required">
+                                        <p class="help-block">选择多个markdown格式的文件</p>
+                                    </div>
+                                    <div class="form-group" style="display: none">
+                                        <label for="article-images">文章内图像</label>
+                                        <input type="file" id="images" name="images"
+                                               multiple="multiple" accept="image/png,image/jpeg,image/jpg">
+                                        <p class="help-block">选择多个图像</p>
+                                    </div>
+                                </div>
+                                <!-- /.box-body -->
+
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-primary">添加</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+            <div class="modal fade" id="image-add-multiple" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title">批量添加</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="box box-primary">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">添加图片</h3>
+                                </div>
+                                <!-- /.box-header -->
+                                <!-- form start -->
+                                <form role="form" enctype="multipart/form-data" method="post"
+                                      th:action="@{/article/images-add}">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="article-images">选择一至多张图像</label>
+                                            <input type="file" id="multiple-image" name="images"
+                                                   multiple="multiple" accept="image/png,image/jpeg,image/jpg">
+                                        </div>
+                                    </div>
+                                    <!-- /.box-body -->
+
+                                    <div class="box-footer">
+                                        <button type="submit" class="btn btn-primary">添加</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <div class="modal fade" id="book-add-multiple" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title">批量添加</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="box box-primary">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">上传电子文档</h3>
+                                </div>
+                                <!-- /.box-header -->
+                                <!-- form start -->
+                                <form role="form" enctype="multipart/form-data" method="post"
+                                      th:action="@{/article/books-add}">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="article-images">选择一至多本图书</label>
+                                            <input type="file" id="multiple-book" name="images"
+                                                   multiple="multiple" accept="image/png,image/jpeg,image/jpg">
+                                        </div>
+                                    </div>
+                                    <!-- /.box-body -->
+
+                                    <div class="box-footer">
+                                        <button type="submit" class="btn btn-primary">添加</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table id="articles" class="table table-bordered table-striped dataTable" role="grid"
+                               aria-describedby="example1_info">
+                            <thead>
+                            <tr role="row">
+                                <th class="sorting_asc hidden" tabindex="0" aria-controls="example1" rowspan="1"
+                                    colspan="1"
+                                    style="width: 297.45px;" aria-sort="ascending"
+                                    aria-label="Rendering engine: activate to sort column descending">ID
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                    style="width: 362.1px;" aria-label="Browser: activate to sort column ascending">
+                                    文章名
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                    style="width: 362.1px;" aria-label="Browser: activate to sort column ascending">
+                                    作者
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                    style="width: 322.167px;"
+                                    aria-label="Platform(s): activate to sort column ascending">路径
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                    style="width: 257.083px;"
+                                    aria-label="Engine version: activate to sort column ascending">发表时间
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                    style="width: 257.083px;"
+                                    aria-label="Engine version: activate to sort column ascending">操作
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr role="row" class="odd" th:each="article : ${articles}">
+                                <td class="sorting_1 hidden" th:text="${article.id}">ID</td>
+                                <td th:text="${article.title}">文章名</td>
+                                <td th:text="${article.authorId}">作者Id</td>
+                                <td th:text="${article.url}">路径</td>
+                                <td th:text="${#calendars.format(article.date, 'yyyy/MM/dd')}">发表时间</td>
+                                <td th:id="${article.id}">
+                                    <button class="btn btn-success raw">查看</button>
+                                    <button class="btn btn-info preview">预览</button>
+                                    <button class="btn btn-primary modify-form">修改</button>
+                                    <button class="btn btn-danger delete">删除</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- /.box-body -->
+            <div class="update_modal">
+                <div class="modal fade" id="article-raw">
+                    <div class="modal-dialog modal-lg ">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <pre>
+                                    <code class="markdown" id="raw-body">
+                                    </code></pre>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+            </div>
+        <div class="update_modal"><!-- preview modal -->
+            <div class="modal fade" id="article-preview">
+                <div class="modal-dialog modal-lg ">
+                    <div class="modal-content">
+                        <div class="modal-body" id="preview-body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="update_modal"><!-- editor modal -->
+                <div class="modal fade " id="editor-area">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Default Modal</h4>
+                            </div>
+                            <div class="modal-body">
+                <textarea class="form-control" id="editor" rows="40" placeholder="Enter ..."
+                          value="hello"></textarea>
+                                <button class="btn btn-success modify">修改</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(function () {
+
+                $('#articles').DataTable();
+
+                $('body').delegate(".preview", "click", function () {
+                    var id = $(this).parent().attr("id");
+                    $.get("/article/get/" + id, function (result) {
+                        var converter = new showdown.Converter(),
+                            html = converter.makeHtml(result);
+                        $("#preview-body").html(html);
+                        // hljs.initHighlightingOnLoad();
+                        // hljs.initHighlighting();
+                        // hljs.highlightBlock(document.getElementById("preview-body"));
+                        document.querySelectorAll('pre code').forEach((block) => {
+                           hljs.highlightBlock(block);
+                        });
+                        $("#article-preview").modal();
+                    })
+                });
+
+                $('body').delegate(".raw", "click", function () {
+                    var id = $(this).parent().attr("id");
+                    $.get("/article/get/" + id, function (result) {
+                        $("#raw-body").text(result);
+                        hljs.highlightBlock(document.getElementById("raw-body"));
+                        $("#article-raw").modal();
+                    })
+                });
+
+                $('body').delegate(".modify-form", "click", function () {
+                    var id = $(this).parent().attr("id");
+                    var title = $(this).parent().parent().children().eq(1).text();
+                    $(".modal-title").text(title);
+                    $.get("/article/get/" + id, function (result) {
+                        $("#editor").text(result);
+                        $('#editor-area').attr("articleId", id).modal();
+                    });
+                });
+
+                $('body').delegate(".modify", "click", function () {
+                    var id = $('#editor-area').attr("articleId");
+                    var text = $('#editor').val();
+                    $.post("/article/modify/" + id, {text: text}, function (data, status) {
+                        if (status == 'success' && data == true) {
+                            alert("修改成功");
+                            window.location.reload();
+                        }
+                    });
+                });
+
+                $('body').delegate(".delete", "click", function () {
+                    var title = $(this).parent().parent().children().eq(1).text();
+                    var id = $(this).parent().attr("id");
+                    var d = confirm("确定删除" + title + "吗?");
+                    if (d) {
+                        $.get("/article/delete/" + id, function () {
+                            window.location.reload();
+                        });
+                    }
+                });
+
+                $('#markdown-file').change(function () {
+                    var file = document.getElementById("markdown-file");
+                    var filename = file.files[0].name;
+                    var filesize = file.files[0].size;
+                    var suffix = filename.substr(filename.lastIndexOf('.') + 1, filename.length);
+                    if (suffix != 'md') {
+                        alert("上传的必须是markdown纯文件文件,以.md结尾");
+                    }
+                });
+            })
+        </script>
+</section>

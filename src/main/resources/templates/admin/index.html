@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{admin/fragment/head :: head}"/>
+<!--<div th:include="~{fragment/script :: script}"></div>-->
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <div th:replace="~{admin/fragment/header :: admin-header}"></div>
+    <div th:replace="~{admin/fragment/menu :: menu}"></div>
+    <div class="content-wrapper">
+<div th:replace="~{admin/fragment/mhead :: mhead}"></div>
+        <div th:replace="~{${path} :: ${content}}"></div>
+    </div>
+
+<div th:replace="~{admin/fragment/footer :: admin-footer}"></div>
+    <div th:replace="~{admin/fragment/rside :: rside}"></div>
+    <div class="control-sidebar-bg"></div>
+</div>
+</body>
+</html>

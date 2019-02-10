@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="wp" th:fragment="article">
+
+    <style type="text/css">
+        #nv_portal .vw .h.hm {background: #FFF url(https://dn-linuxcn.qbox.me/data/attachment/album/201902/06/182204zezh8mjumti2kwok.jpg); border-radius: 0;background-size: cover; background-position: center; height: 640px;position: relative;padding: 10px; margin-bottom: 0; }
+        #nv_portal .vw .h.hm h1 {background-color: rgba(33,33,33,0.8); border-radius: 0;position: absolute;margin: 10px 20px 20px 20px;padding: 15px 10px;bottom: 0;width: 90%; }
+        #nv_portal .vw .d table {margin: 0;}
+    </style>
+    <div id="ct" class="ct2 wp cl">
+        <div class="mn">
+            <article class="vw">
+                <div class="h hm bm" style="margin-top: 0;">
+                    <h1 class="ph" id="article_title">如何使用不同的方式更改 Linux 用户密码 </h1>
+                    <div class="ph" id="article_copyright">
+<span>作者：
+
+    		    			<span class="textcut"><a href="https://www.2daygeek.com/linux-passwd-chpasswd-command-set-update-change-users-password-in-linux-using-shell-script/" target="_blank">Vinoth Kumar</a></span>
+    		    	    	<span>译者：
+<a href="https://linux.cn/lctt/" target="_blank">LCTT</a>&nbsp;<a href="/lctt/MjSeven" target="_blank">MjSeven</a></span>
+<p id="article_date">
+| 2019-02-06 18:22&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+</p>
+</span></div>
+                </div>
+
+                <div class="d" style="width: 100%;margin: 0;">
+                    <div id="article_content" style="border-radius:0;">
+
+                        <p>在 Linux 中创建用户账号时，设置用户密码是一件基本的事情。每个人都使用 <code>passwd</code> 命令跟上用户名，比如 <code>passwd USERNAME</code> 来为用户设置密码。</p>
+                        <p>确保你一定要设置一个难以猜测的密码，这可以帮助你使系统更安全。我的意思是，密码应该是字母、符号和数字的组合。此外，出于安全原因，我建议你至少每月更改一次密码。</p>
+                        <p>当你使用 <code>passwd</code> 命令时，它会要求你输入两次密码来设置。这是一种设置用户密码的原生方法。</p>
+                        <p>如果你不想两次更新密码，并希望以不同的方式进行更新，怎么办呢？当然，这可以的，有可能做到。</p>
+                        <p>如果你是 Linux 管理员，你可能已经多次问过下面的问题。你可能、也可能没有得到这些问题的答案。</p>
+                        <p>无论如何，不要担心，我们会回答你所有的问题。</p>
+                        <ul>
+                            <li>如何用一条命令更改用户密码？</li>
+                            <li>如何在 Linux 中为多个用户更改为相同的密码？</li>
+                            <li>如何在 Linux 中更改多个用户的密码？</li>
+                            <li>如何在 Linux 中为多个用户更改为不同的密码？</li>
+                            <li>如何在多个 Linux 服务器中更改用户的密码？</li>
+                            <li>如何在多个 Linux 服务器中更改多个用户的密码？</li>
+                        </ul>
+                        <h3 id="toc_1">方法-1：使用 passwd 命令</h3>
+                        <p><code>passwd</code> 命令是在 Linux 中为用户设置、更改密码的标准方法。以下是标准方法。</p>
+                        <pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">passwd</span><span class="pln"> renu</span></code></li><li class="L1"><code><span class="typ">Changing</span><span class="pln"> password </span><span class="kwd">for</span><span class="pln"> user renu</span><span class="pun">.</span></code></li><li class="L2"><code><span class="typ">New</span><span class="pln"> password</span><span class="pun">:</span></code></li><li class="L3"><code><span class="pln">BAD PASSWORD</span><span class="pun">:</span><span class="pln"> </span><span class="typ">The</span><span class="pln"> password contains the user name </span><span class="kwd">in</span><span class="pln"> some form</span></code></li><li class="L4"><code><span class="typ">Retype</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> password</span><span class="pun">:</span></code></li><li class="L5"><code><span class="kwd">passwd</span><span class="pun">:</span><span class="pln"> all authentication tokens updated successfully</span><span class="pun">.</span></code></li></ol></pre>
+                        <p>如果希望在一条命令中设置或更改密码，运行以下命令。它允许用户在一条命令中更新密码。</p>
+                        <pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">echo</span><span class="pln"> </span><span class="str">"new_password"</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> </span><span class="kwd">passwd</span><span class="pln"> </span><span class="pun">--</span><span class="pln">stdin thanu</span></code></li><li class="L1"><code><span class="typ">Changing</span><span class="pln"> password </span><span class="kwd">for</span><span class="pln"> user thanu</span><span class="pun">.</span></code></li><li class="L2"><code><span class="kwd">passwd</span><span class="pun">:</span><span class="pln"> all authentication tokens updated successfully</span><span class="pun">.</span></code></li></ol></pre>
+                        <h3 id="toc_2">方法-2：使用 chpasswd 命令</h3>
+                        <p><code>chpasswd</code> 是另一个命令，允许我们为 Linux 中的用户设置、更改密码。如果希望在一条命令中使用 <code>chpasswd</code> 命令更改用户密码，用以下格式。</p>
+                        <pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">echo</span><span class="pln"> </span><span class="str">"thanu:new_password"</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> </span><span class="kwd">chpasswd</span></code></li></ol></pre>
+                        <h3 id="toc_3">方法-3：如何为多个用户设置不同的密码</h3>
+                        <p>如果你要为 Linux 中的多个用户设置、更改密码，并且使用不同的密码，使用以下脚本。</p>
+                        <p>为此，首先我们需要使用以下命令获取用户列表。下面的命令将列出拥有 <code>/home</code> 目录的用户，并将输出重定向到 <code>user-list.txt</code> 文件。</p>
+                        <pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">cat</span><span class="pln"> </span><span class="pun">/</span><span class="pln">etc</span><span class="pun">/</span><span class="kwd">passwd</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> </span><span class="kwd">grep</span><span class="pln"> </span><span class="str">"/home"</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> </span><span class="kwd">cut</span><span class="pln"> </span><span class="pun">-</span><span class="pln">d</span><span class="str">":"</span><span class="pln"> </span><span class="pun">-</span><span class="pln">f1 </span><span class="pun">&gt;</span><span class="pln"> user</span><span class="pun">-</span><span class="kwd">list</span><span class="pun">.</span><span class="pln">txt</span></code></li></ol></pre>
+                        <p>使用 <code>cat</code> 命令列出用户。如果你不想重置特定用户的密码，那么从列表中移除该用户。</p>
+                        <pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">cat</span><span class="pln"> user</span><span class="pun">-</span><span class="kwd">list</span><span class="pun">.</span><span class="pln">txt</span></code></li><li class="L1"><code><span class="pln">centos</span></code></li><li class="L2"><code><span class="pln">magi</span></code></li><li class="L3"><code><span class="pln">daygeek</span></code></li><li class="L4"><code><span class="pln">thanu</span></code></li><li class="L5"><code><span class="pln">renu</span></code></li></ol></pre>
+                        <p>创建以下 shell 小脚本来实现此目的。</p>
+                        <pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">vi</span><span class="pln"> password</span><span class="pun">-</span><span class="pln">update</span><span class="pun">.</span><span class="pln">sh</span></code></li><li class="L1"><code></code></li><li class="L2"><code><span class="com">#</span><span class="pun">!</span><span class="str">/bin/</span><span class="pln">sh</span></code></li><li class="L3"><code><span class="kwd">for</span><span class="pln"> user </span><span class="kwd">in</span><span class="pln"> </span><span class="str">`more user-list.txt`</span></code></li><li class="L4"><code><span class="kwd">do</span></code></li><li class="L5"><code><span class="kwd">echo</span><span class="pln"> </span><span class="str">"[email&nbsp;protected]"</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> </span><span class="kwd">passwd</span><span class="pln"> </span><span class="pun">--</span><span class="pln">stdin </span><span class="str">"$user"</span></code></li><li class="L6"><code><span class="pln">chage </span><span class="pun">-</span><span class="pln">d </span><span class="lit">0</span><span class="pln"> $user</span></code></li><li class="L7"><code><span class="kwd">done</span></code></li></ol></pre>
+                        <p>给 <code>password-update.sh</code> 文件设置可执行权限。</p>
+                        <pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">chmod</span><span class="pln"> </span><span class="pun">+</span><span class="pln">x password</span><span class="pun">-</span><span class="pln">update</span><span class="pun">.</span><span class="pln">sh</span></code></li></ol></pre>
+                        <p>最后运行脚本来实现这一目标。</p>
+                        <pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="pun">./</span><span class="pln">password</span><span class="pun">-</span><span class="pln">up</span><span class="pun">.</span><span class="pln">sh</span></code></li><li class="L1"><code></code></li><li class="L2"><code><span class="pln">magi</span></code></li><li class="L3"><code><span class="typ">Changing</span><span class="pln"> password </span><span class="kwd">for</span><span class="pln"> user magi</span><span class="pun">.</span></code></li><li class="L4"><code><span class="kwd">passwd</span><span class="pun">:</span><span class="pln"> all authentication tokens updated successfully</span><span class="pun">.</span></code></li><li class="L5"><code><span class="pln">daygeek</span></code></li><li class="L6"><code><span class="typ">Changing</span><span class="pln"> password </span><span class="kwd">for</span><span class="pln"> user daygeek</span><span class="pun">.</span></code></li><li class="L7"><code><span class="kwd">passwd</span><span class="pun">:</span><span class="pln"> all authentication tokens updated successfully</span><span class="pun">.</span></code></li><li class="L8"><code><span class="pln">thanu</span></code></li><li class="L9"><code><span class="typ">Changing</span><span class="pln"> password </span><span class="kwd">for</span><span class="pln"> user thanu</span><span class="pun">.</span></code></li><li class="L0"><code><span class="kwd">passwd</span><span class="pun">:</span><span class="pln"> all authentication tokens updated successfully</span><span class="pun">.</span></code></li><li class="L1"><code><span class="pln">renu</span></code></li><li class="L2"><code><span class="typ">Changing</span><span class="pln"> password </span><span class="kwd">for</span><span class="pln"> user renu</span><span class="pun">.</span></code></li><li class="L3"><code><span class="kwd">passwd</span><span class="pun">:</span><span class="pln"> all authentication tokens updated successfully</span><span class="pun">.</span></code></li></ol></pre>
+                        <h3 id="toc_4">方法-4：如何为多个用户设置相同的密码</h3>
+                        <p>如果要在 Linux 中为多个用户设置、更改相同的密码，使用以下脚本。</p>
+                        <pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">vi</span><span class="pln"> password</span><span class="pun">-</span><span class="pln">update</span><span class="pun">.</span><span class="pln">sh</span></code></li><li class="L1"><code></code></li><li class="L2"><code><span class="com">#</span><span class="pun">!</span><span class="str">/bin/</span><span class="pln">sh</span></code></li><li class="L3"><code><span class="kwd">for</span><span class="pln"> user </span><span class="kwd">in</span><span class="pln"> </span><span class="str">`more user-list.txt`</span></code></li><li class="L4"><code><span class="kwd">do</span></code></li><li class="L5"><code><span class="kwd">echo</span><span class="pln"> </span><span class="str">"new_password"</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> </span><span class="kwd">passwd</span><span class="pln"> </span><span class="pun">--</span><span class="pln">stdin </span><span class="str">"$user"</span></code></li><li class="L6"><code><span class="pln">chage </span><span class="pun">-</span><span class="pln">d </span><span class="lit">0</span><span class="pln"> $user</span></code></li><li class="L7"><code><span class="kwd">done</span></code></li></ol></pre>
+                        <h3 id="toc_5">方法-5：如何在多个服务器中更改用户密码</h3>
+                        <p>如果希望更改多个服务器中的用户密码，使用以下脚本。在本例中，我们将更改 <code>renu</code> 用户的密码，确保你必须提供你希望更新密码的用户名而不是我们的用户名。</p>
+                        <p>确保你必须将服务器列表保存在 <code>server-list.txt</code> 文件中，每个服务器应该在单独一行中。</p>
+                        <pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">vi</span><span class="pln"> password</span><span class="pun">-</span><span class="pln">update</span><span class="pun">.</span><span class="pln">sh</span></code></li><li class="L1"><code></code></li><li class="L2"><code><span class="com">#</span><span class="pun">!</span><span class="str">/bin/</span><span class="kwd">bash</span></code></li><li class="L3"><code><span class="kwd">for</span><span class="pln"> server </span><span class="kwd">in</span><span class="pln"> </span><span class="str">`cat server-list.txt`</span></code></li><li class="L4"><code><span class="kwd">do</span></code></li><li class="L5"><code><span class="kwd">ssh</span><span class="pln"> </span><span class="pun">[</span><span class="pln">email&nbsp;</span><span class="kwd">protected</span><span class="pun">]</span><span class="pln">$server </span><span class="str">'passwd --stdin renu &lt;&lt;EOF</span></code></li><li class="L6"><code><span class="str">new_passwd</span></code></li><li class="L7"><code><span class="str">new_passwd</span></code></li><li class="L8"><code><span class="str">EOF'</span><span class="pun">;</span></code></li><li class="L9"><code><span class="kwd">done</span></code></li></ol></pre>
+                        <p>你将得到与我们类似的输出。</p>
+                        <pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="pun">./</span><span class="pln">password</span><span class="pun">-</span><span class="pln">update</span><span class="pun">.</span><span class="pln">sh</span></code></li><li class="L1"><code></code></li><li class="L2"><code><span class="typ">New</span><span class="pln"> password</span><span class="pun">:</span><span class="pln"> BAD PASSWORD</span><span class="pun">:</span><span class="pln"> it </span><span class="kwd">is</span><span class="pln"> based on a dictionary word</span></code></li><li class="L3"><code><span class="pln">BAD PASSWORD</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">is</span><span class="pln"> too simple</span></code></li><li class="L4"><code><span class="typ">Retype</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> password</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Changing</span><span class="pln"> password </span><span class="kwd">for</span><span class="pln"> user renu</span><span class="pun">.</span></code></li><li class="L5"><code><span class="kwd">passwd</span><span class="pun">:</span><span class="pln"> all authentication tokens updated successfully</span><span class="pun">.</span></code></li><li class="L6"><code><span class="typ">New</span><span class="pln"> password</span><span class="pun">:</span><span class="pln"> BAD PASSWORD</span><span class="pun">:</span><span class="pln"> it </span><span class="kwd">is</span><span class="pln"> based on a dictionary word</span></code></li><li class="L7"><code><span class="pln">BAD PASSWORD</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">is</span><span class="pln"> too simple</span></code></li><li class="L8"><code><span class="typ">Retype</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> password</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Changing</span><span class="pln"> password </span><span class="kwd">for</span><span class="pln"> user renu</span><span class="pun">.</span></code></li><li class="L9"><code><span class="kwd">passwd</span><span class="pun">:</span><span class="pln"> all authentication tokens updated successfully</span><span class="pun">.</span></code></li></ol></pre>
+                        <h3 id="toc_6">方法-6：如何使用 pssh 命令更改多个服务器中的用户密码</h3>
+                        <p><code>pssh</code> 是一个在多个主机上并行执行 ssh 连接的程序。它提供了一些特性，例如向所有进程发送输入，向 ssh 传递密码，将输出保存到文件以及超时处理。导航到以下链接以了解关于 <a href="https://www.2daygeek.com/pssh-parallel-ssh-run-execute-commands-on-multiple-linux-servers/" class="ext" rel="external nofollow" target="_blank">PSSH 命令</a>的更多信息。</p>
+                        <pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> pssh </span><span class="pun">-</span><span class="pln">i </span><span class="pun">-</span><span class="pln">h </span><span class="pun">/</span><span class="pln">tmp</span><span class="pun">/</span><span class="pln">server</span><span class="pun">-</span><span class="kwd">list</span><span class="pun">.</span><span class="pln">txt </span><span class="str">"printf '%s\n' new_pass new_pass | passwd --stdin root"</span></code></li></ol></pre>
+                        <p>你将获得与我们类似的输出。</p>
+                        <pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pun">[</span><span class="lit">1</span><span class="pun">]</span><span class="pln"> </span><span class="lit">07</span><span class="pun">:</span><span class="lit">58</span><span class="pun">:</span><span class="lit">07</span><span class="pln"> </span><span class="pun">[</span><span class="pln">SUCCESS</span><span class="pun">]</span><span class="pln"> </span><span class="typ">CentOS</span><span class="pun">.</span><span class="lit">2daygeek</span><span class="pun">.</span><span class="pln">com</span></code></li><li class="L1"><code><span class="typ">Changing</span><span class="pln"> password </span><span class="kwd">for</span><span class="pln"> user root</span><span class="pun">.</span></code></li><li class="L2"><code><span class="kwd">passwd</span><span class="pun">:</span><span class="pln"> all authentication tokens updated successfully</span><span class="pun">.</span></code></li><li class="L3"><code><span class="typ">Stderr</span><span class="pun">:</span><span class="pln"> </span><span class="typ">New</span><span class="pln"> password</span><span class="pun">:</span><span class="pln"> BAD PASSWORD</span><span class="pun">:</span><span class="pln"> it </span><span class="kwd">is</span><span class="pln"> based on a dictionary word</span></code></li><li class="L4"><code><span class="pln">BAD PASSWORD</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">is</span><span class="pln"> too simple</span></code></li><li class="L5"><code><span class="typ">Retype</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> password</span><span class="pun">:</span></code></li><li class="L6"><code><span class="pun">[</span><span class="lit">2</span><span class="pun">]</span><span class="pln"> </span><span class="lit">07</span><span class="pun">:</span><span class="lit">58</span><span class="pun">:</span><span class="lit">07</span><span class="pln"> </span><span class="pun">[</span><span class="pln">SUCCESS</span><span class="pun">]</span><span class="pln"> </span><span class="typ">ArchLinux</span><span class="pun">.</span><span class="lit">2daygeek</span><span class="pun">.</span><span class="pln">com</span></code></li><li class="L7"><code><span class="typ">Changing</span><span class="pln"> password </span><span class="kwd">for</span><span class="pln"> user root</span><span class="pun">.</span></code></li><li class="L8"><code><span class="kwd">passwd</span><span class="pun">:</span><span class="pln"> all authentication tokens updated successfully</span><span class="pun">.</span></code></li><li class="L9"><code><span class="typ">Stderr</span><span class="pun">:</span><span class="pln"> </span><span class="typ">New</span><span class="pln"> password</span><span class="pun">:</span><span class="pln"> BAD PASSWORD</span><span class="pun">:</span><span class="pln"> it </span><span class="kwd">is</span><span class="pln"> based on a dictionary word</span></code></li><li class="L0"><code><span class="pln">BAD PASSWORD</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">is</span><span class="pln"> too simple</span></code></li></ol></pre>
+                        <h3 id="toc_7">方法-7：如何使用 chpasswd 命令更改多个服务器中的用户密码</h3>
+                        <p>或者，我们可以使用 <code>chpasswd</code> 命令更新多个服务器中的用户密码。</p>
+                        <pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="pun">./</span><span class="pln">password</span><span class="pun">-</span><span class="pln">update</span><span class="pun">.</span><span class="pln">sh</span></code></li><li class="L1"><code></code></li><li class="L2"><code><span class="com">#</span><span class="pun">!</span><span class="str">/bin/</span><span class="kwd">bash</span></code></li><li class="L3"><code><span class="kwd">for</span><span class="pln"> server </span><span class="kwd">in</span><span class="pln"> </span><span class="str">`cat server-list.txt`</span></code></li><li class="L4"><code><span class="kwd">do</span></code></li><li class="L5"><code><span class="kwd">ssh</span><span class="pln"> </span><span class="pun">[</span><span class="pln">email&nbsp;</span><span class="kwd">protected</span><span class="pun">]</span><span class="pln">$server </span><span class="str">'echo "magi:new_password" | chpasswd'</span></code></li><li class="L6"><code><span class="kwd">done</span></code></li></ol></pre>
+                        <h3 id="toc_8">方法-8：如何使用 chpasswd 命令在 Linux 服务器中更改多个用户的密码</h3>
+                        <p>为此，首先创建一个文件，以下面的格式更新用户名和密码。在本例中，我创建了一个名为 <code>user-list.txt</code> 的文件。</p>
+                        <p>参考下面的详细信息。</p>
+                        <pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">cat</span><span class="pln"> user</span><span class="pun">-</span><span class="kwd">list</span><span class="pun">.</span><span class="pln">txt</span></code></li><li class="L1"><code><span class="pln">magi</span><span class="pun">:</span><span class="kwd">new</span><span class="pun">@</span><span class="lit">123</span></code></li><li class="L2"><code><span class="pln">daygeek</span><span class="pun">:</span><span class="kwd">new</span><span class="pun">@</span><span class="lit">123</span></code></li><li class="L3"><code><span class="pln">thanu</span><span class="pun">:</span><span class="kwd">new</span><span class="pun">@</span><span class="lit">123</span></code></li><li class="L4"><code><span class="pln">renu</span><span class="pun">:</span><span class="kwd">new</span><span class="pun">@</span><span class="lit">123</span></code></li></ol></pre>
+                        <p>创建下面的 shell 小脚本来实现这一点。</p>
+                        <pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">vi</span><span class="pln"> password</span><span class="pun">-</span><span class="pln">update</span><span class="pun">.</span><span class="pln">sh</span></code></li><li class="L1"><code></code></li><li class="L2"><code><span class="com">#</span><span class="pun">!</span><span class="str">/bin/</span><span class="kwd">bash</span></code></li><li class="L3"><code><span class="kwd">for</span><span class="pln"> </span><span class="kwd">users</span><span class="pln"> </span><span class="kwd">in</span><span class="pln"> </span><span class="str">`cat user-list.txt`</span></code></li><li class="L4"><code><span class="kwd">do</span></code></li><li class="L5"><code><span class="kwd">echo</span><span class="pln"> $users </span><span class="pun">|</span><span class="pln"> </span><span class="kwd">chpasswd</span></code></li><li class="L6"><code><span class="kwd">done</span></code></li></ol></pre>
+                        <hr>
+                        <p>via: <a href="https://www.2daygeek.com/linux-passwd-chpasswd-command-set-update-change-users-password-in-linux-using-shell-script/" class="ext" rel="external nofollow" target="_blank">https://www.2daygeek.com/linux-passwd-chpasswd-command-set-update-change-users-password-in-linux-using-shell-script/</a></p>
+                        <p>作者：<a href="https://www.2daygeek.com/author/vinoth/" class="ext" rel="external nofollow" target="_blank">Vinoth Kumar</a> 选题：<a href="https://github.com/lujun9972" class="ext" rel="external nofollow" target="_blank">lujun9972</a> 译者：<a href="https://github.com/MjSeven" class="ext" rel="external nofollow" target="_blank">MjSeven</a> 校对：<a href="https://github.com/wxy" class="ext" rel="external nofollow" target="_blank"> wxy</a></p>
+                        <p>本文由 <a href="https://github.com/LCTT/TranslateProject" class="ext" rel="external nofollow" target="_blank">LCTT</a> 原创编译，<a href="https://linux.cn/article-10514-1.html">Linux中国</a> 荣誉推出</p></div>
+                </div>
+                <br class="clear">
+                <div>
+                </div>
+                <br class="clear">
+            </article>
+        </div>
+    </div>
+    <input type="hidden" id="portalview" value="1">
+    <script type="text/javascript">
+        (function($){
+            $(window).load(function() {
+
+// 文章内插图及注释
+
+                var max_width = $("#article_content").width() - 60;
+                var imgp = $("#article_content IMG").parents("P");
+                imgp.each(function(){
+                    $(this).addClass("article_img");
+                    var img = $(this).find("IMG");
+                    if (img.parent("A").is("A")) {
+                        img.unwrap();
+                    }
+// 如果有图片描述
+                    var desc = null;
+                    if ((desc = $(this).next("P")) && desc && desc.contents() && desc.contents().first().is("EM") ) {
+                        desc.addClass("article_img_desc");
+                        desc_txt = desc.contents().first().text();
+                        img.attr({"title":desc_txt,"alt":desc_txt});
+                    } else if ((desc = img.next("BR").next("EM")) && desc.text()) {
+                        var desc_txt = desc.text();
+                        img.next("BR").remove();
+                        img.next("EM").remove();
+                        $(this).after("<p class='article_img_desc'><em>" + desc_txt + "</em></p>");
+                    } else {
+                        var desc_txt = img.attr("alt") || img.attr("title");
+                        if (desc_txt != '' && typeof desc_txt != 'undefined') {
+                            $(this).after("<p class='article_img_desc'><em>" + desc_txt + "</em></p>");
+                        }
+                    }
+                    if (img.attr("width") > max_width) {
+                        img.attr("width",'');
+                        img.attr("height",'');
+                        img.css("cursor","pointer");
+                        img.click(function(){window.open(img.attr("src"));});
+                    } else if (img.width() > max_width) {
+                        img.css("height",parseInt(img.height() * (max_width / img.attr("width"))));
+                        img.css("width",max_width);
+                        img.css("cursor","pointer");
+                        img.click(function(){window.open(img.attr("src"));});
+                    }
+                });
+
+                var pre = $("#article_content PRE");
+                pre.each(function(){
+// 如果有代码描述
+                    var desc = null;
+                    if ((desc = $(this).next("P")) && desc && desc.contents() && desc.contents().first().is("EM") ) {
+                        desc.addClass("article_img_desc");
+                        desc_txt = desc.contents().first().text();
+                    }
+                });
+
+// 链接
+                var re_sitelink = /^https?:\/\/(www.)?linux(.net)?.cn\//i;
+                $("#article_content a").map(function(){
+                    if ($(this).attr('href') == undefined) {
+                        $(this).css({'visibility':'hidden'});
+                    } else if ($(this).attr('href').substr(0,1) == '#') {
+                        $(this).attr('href','https://linux.cn/article-10514-1.html' + $(this).attr('href'));
+                    }
+                    if (re_sitelink.test($(this).attr('href'))) {
+                        if ($(this).text() == 'Linux中国') $(this).attr('href',$(location).attr('href'));
+                    } else {
+                        $(this).addClass("ext").attr({"rel":"external nofollow","target":"_blank"});
+                    }
+                });
+
+// 视频
+                $("video").map(function() {
+                    width = $(this).attr("width");
+                    height = $(this).attr("height");
+                    $(this).wrap("<div class='videoContainer'></div>").parent()
+                        .css({width: width,height : height});
+                });
+                $("#article_content table").wrap("<section class='bm'><section style='white-space:nowrap;overflow:scroll;'></section></section>")
+                    .parent().parent().prepend("<section class='hm bm_h'>&lt; 如显示不全，请左右滑动 &gt;</section>")
+                    .append("<section class='hm bm_f'></section>");
+                $("#article_content table td").map(function() {
+                    var c = $(this).text();
+                    if (c.length > 20) $(this).css("white-space","normal");
+
+                });
+            })
+        })(jQuery);
+    </script>
+</div>
+

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="mn" th:fragment="articles">
+    <div class="linuxcnad"></div>
+    <!--[diy=listcontenttop]-->
+    <div id="listcontenttop" class="area"></div><!--[/diy]-->
+    <div class="bm" style="margin-right:4px;">
+        <div class="title frame-title">
+            <h1 class="xs2">博文</h1>
+        </div>
+        <div class="block">
+            <ul class="article-list leftpic" th:each="article : ${articles}">
+                <li>
+                    <h2>
+   	<span class="y cat">
+</span>
+                        <span class="title"><a href="https://linux.cn/article-9328-1.html"
+                                               th:href="${'/article/' + article.id}" style="color:#0A0;"
+                                               title="${article.title}" target="_blank" class="new"><span
+                                id="nt_9328" th:text="${article.title}">文章标题</span></a>  <span
+                                class="original">原</span></span>
+                    </h2>
+                    <div><a href="#" class="new"><img
+                            src="https://dn-linuxcn.qbox.me/data/attachment/album/201802/10/095011cuxjqpmf7pyxkvh3.png.thumb.jpg"></a>
+                    </div>
+                    <p id="ns_9328" th:text="${article.intro}">文章简介</p>
+                    <p class="info">
+    <span class="function">
+        评论：0
+    分享：1
+    收藏：0 &nbsp;&nbsp;&nbsp;&nbsp;
+    </span>
+                        2018-02-10 09:50 &nbsp;&nbsp;&nbsp;&nbsp;
+                        Paul Brown, qhwdw</p>
+                </li>
+            </ul>
+        </div>
+        <!--[diy=listloopbottom]-->
+        <div id="listloopbottom" class="area"></div><!--[/diy]-->
+    </div>
+    <div class="pgs cl y">
+        <div class="pg" id="pageSplit">
+            <a href="index.php?page=4" class="prev hidefocus" id="prev">&nbsp;&nbsp;</a>
+        </div>
+    </div>
+    <div id="diycontentbottom" class="area"></div><!--[/diy]-->
+    <script th:inline="javascript">
+        $(function () {
+            var href = window.location.href;
+            var currentIndex = Number(href.substring(href.lastIndexOf("/") + 1, href.length));
+            var preIndex = currentIndex - 1 > 0 ? currentIndex - 1 : 1;
+            var nextIndex = currentIndex + 1;
+            var pageCount = [[${counts}]];
+            var end = pageCount > currentIndex + 4 ? 10 : pageCount;
+            var start = end > 10 ? currentIndex - 4 : 1;
+            if (currentIndex < 10) {
+                $("#prev").attr("href", "/index/" + preIndex);
+                for (var i = start; i <= end; i++) {
+                    if (currentIndex != i) {
+                        $("#pageSplit").append($("<a></a>").text(i).attr("href", "/index/" + i));
+                    } else {
+                        $("#pageSplit").append($("<strong></strong>").text(i));
+                    }
+                }
+                if (pageCount > end) {
+                    $("#pageSplit").append($("<a></a>").text("..." + pageCount).addClass("last").attr("href", "/index/" + pageCount));
+                }
+
+                $("#pageSplit").append($("<label></label>").append($("<input>").attr("type", "text").addClass("px").val(currentIndex)
+                    .keydown(function (event) {
+                        if (event.keyCode == 13) {
+                            window.location.href = '/index/' + this.value;
+                        }
+                    }))
+                    .append($("<span></span>").text("/" + pageCount + "页")));
+
+                $("#pageSplit").append($("<a></a>").text("下一页").attr("href", "/index/" + nextIndex).addClass("nxt"));
+            }
+        });
+    </script>
+</div>

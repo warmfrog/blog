@@ -1,0 +1,1 @@
+INSERT INTO booksp.users (username, password, email, register_time) VALUES ('warmfrog', '$2a$10$FhdalFWuzsgc9whJmSCcZukWpwbh5O7krwCEYXe2uss/EyR0BBLnO', '1594914459@qq.com', null);
