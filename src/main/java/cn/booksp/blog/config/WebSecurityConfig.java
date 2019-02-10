@@ -13,8 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import javax.sql.DataSource;
-
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -22,9 +20,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("customUserDetailService")
     @Autowired
     private UserDetailsService customUserDetailsService;
-
-    @Autowired
-    DataSource dataSource;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
@@ -35,7 +30,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
         auth.eraseCredentials(false);
-//        auth.jdbcAuthentication().dataSource(dataSource).withUser("username").password("password").roles("ADMIN");
     }
 
     @Override
